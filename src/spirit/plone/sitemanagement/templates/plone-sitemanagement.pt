@@ -48,15 +48,18 @@
                                         title site/Title;"
                         tal:content="site/getId">Site ID</a>
                   </td>
-                  <td>
-                    <div i18n:translate="" tal:condition="python:not view.outdated(site)">This site is up to date</div>
+                  <td tal:define="outdated python:view.outdated(site);
+                                  klass python:outdated and 'danger' or ''"
+                      tal:attributes="class klass">
+                    <div i18n:translate="" tal:condition="not:outdated">This site is up to date</div>
                     <div class="upgrade-warning"
-                        tal:condition="python:view.outdated(site)">
+                        tal:condition="outdated">
                       <span i18n:translate="">This site configuration is outdated and needs to be upgraded:</span>
                       <a i18n:translate="" href="" tal:attributes="href python:view.upgrade_url(site)">Upgrade</a>
                     </div>
                   </td>
-                  <td tal:define="updates python:view.get_upgrades(site)">
+                  <td tal:define="updates python:view.get_upgrades(site);
+                                  klass python:updates and 'warning' or ''">
                     <div tal:condition="updates">
                       <ul tal:repeat="addon updates">
                         <li>
