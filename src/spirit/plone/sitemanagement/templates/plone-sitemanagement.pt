@@ -59,7 +59,8 @@
                     </div>
                   </td>
                   <td tal:define="updates python:view.get_upgrades(site);
-                                  klass python:updates and 'warning' or ''">
+                                  klass python:updates and 'warning' or ''"
+                      tal:attributes="class klass">
                     <div tal:condition="updates">
                       <ul tal:repeat="addon updates">
                         <li>
