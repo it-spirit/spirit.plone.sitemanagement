@@ -1,0 +1,13 @@
+body {
+  padding-left: 2em;
+  padding-right: 2em;
+  width: auto;
+}
+
+#box {
+  max-width: 100%;
+}
+
+footer {
+  margin-top: 2em;
+}

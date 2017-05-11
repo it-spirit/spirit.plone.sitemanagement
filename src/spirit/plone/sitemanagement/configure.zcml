@@ -1,0 +1,33 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:five="http://namespaces.zope.org/five"
+    i18n_domain="spirit.plone.sitemanagement">
+
+
+  <browser:page
+      for="OFS.interfaces.IApplication"
+      name="plone-sitemanagement"
+      class=".admin.SiteManagement"
+      permission="zope2.ViewManagementScreens"
+      template="templates/plone-sitemanagement.pt"
+      />
+
+  <browser:page
+      for="OFS.interfaces.IApplication"
+      name="plone-sitemanagement-upgrade-addons"
+      class=".admin.UpgradeProducts"
+      permission="zope2.ViewManagementScreens"
+      />
+
+  <browser:resource
+      file="assets/sitemanagement.css"
+      name="sitemanagement.css"
+      />
+
+  <browser:resource
+      file="assets/bootstrap.min.css"
+      name="bootstrap.min.css"
+      />
+
+</configure>
