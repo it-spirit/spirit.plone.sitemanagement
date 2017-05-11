@@ -301,6 +301,10 @@ class UpgradeProducts(SiteManagement):
         if profile is None:
             setSite(None)
             return False
-        portal_setup.upgradeProfile(profile['id'])
+        try:
+            portal_setup.upgradeProfile(profile['id'])
+        except AttributeError:
+            qi = getToolByName(site, 'portal_quickinstaller')  # noqa
+            qi.upgradeProduct(product_id)
         setSite(None)
         return True
