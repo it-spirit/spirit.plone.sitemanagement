@@ -10,7 +10,10 @@ from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.browser.admin import Overview
 from Products.CMFPlone.interfaces import INonInstallable
 from Products.GenericSetup import EXTENSION
-from Products.GenericSetup.tool import UNKNOWN
+try:
+    from Products.GenericSetup.tool import UNKNOWN
+except ImportError:
+    UNKNOWN = 'unknown'
 from zope.component import getAllUtilitiesRegisteredFor
 from zope.component.hooks import setSite
 
