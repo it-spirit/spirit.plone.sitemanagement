@@ -21,6 +21,10 @@ from zope.component.hooks import setSite
 class SiteManagement(Overview):
     """Site Management Page."""
 
+    def sites(self, root=None):
+        result = super(SiteManagement, self).sites(root=root)
+        return sorted(result, key=lambda x: x.getId())
+
     def get_upgrades(self, site):
         filtered = {}
         addons = self.get_addons(site)
