@@ -34,9 +34,6 @@ install:
   - pip install zc.buildout==2.5.0
   - buildout -c travis.cfg annotate
   - buildout -c travis.cfg -N -q
-branches:
-  only:
-    - master
 script:
   - bin/code-analysis
   - bin/test
