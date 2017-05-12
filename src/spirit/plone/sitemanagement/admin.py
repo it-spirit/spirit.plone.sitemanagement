@@ -218,7 +218,7 @@ class SiteManagement(Overview):
             prof for prof in profiles
             if prof['type'] == EXTENSION and (
                 prof['product'] == product_id or
-                prof['product'] == 'Products.%s' % product_id
+                prof['product'] == 'Products.{0}'.format(product_id)
             )
         ]
         return profiles
