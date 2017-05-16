@@ -14,8 +14,13 @@ try:
     from Products.GenericSetup.tool import UNKNOWN
 except ImportError:
     UNKNOWN = 'unknown'
+try:
+    from plone.app.theming.browser.controlpanel import ThemingControlpanel
+except ImportError:
+    ThemingControlpanel = None
 from zope.component import getAllUtilitiesRegisteredFor
 from zope.component.hooks import setSite
+from zope.component.interfaces import ComponentLookupError
 
 
 class SiteManagement(Overview):
@@ -24,6 +29,37 @@ class SiteManagement(Overview):
     def sites(self, root=None):
         result = super(SiteManagement, self).sites(root=root)
         return sorted(result, key=lambda x: x.getId())
+
+    def get_theming(self, site):
+        """Return the theming configuration for a site."""
+        result = {}
+        if ThemingControlpanel is None:
+            return result
+
+        setSite(site)
+        tcp = ThemingControlpanel(site, self.request)
+        try:
+            tcp.update()
+        except ComponentLookupError:
+            tcp = None
+        else:
+            result['current'] = tcp.selectedTheme
+            try:
+                settings = getattr(
+                    tcp, 'theme_settings', getattr(tcp, 'settings')
+                )
+            except AttributeError:
+                settings = None
+            result['settings'] = settings
+            themes = [
+                theme for theme in tcp.themeList()
+                if theme.get('name') == tcp.selectedTheme
+            ]
+            if len(themes) > 0:
+                result['data'] = themes[0]
+        finally:
+            setSite(None)
+        return result
 
     def get_upgrades(self, site):
         filtered = {}

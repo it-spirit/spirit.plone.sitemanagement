@@ -41,6 +41,7 @@
                     <th i18n:translate="">Site ID</th>
                     <th i18n:translate="">Plone</th>
                     <th i18n:translate="">Add-Ons</th>
+                    <th i18n:translate="">Theming</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -79,6 +80,22 @@
                           </li>
                         </tal:updates>
                         <li i18n:translate="" tal:condition="not:updates">No Add-On updates available</li>
+                      </ul>
+                    </td>
+                    <td tal:define="theming python:view.get_theming(site)">
+                      <ul>
+                        <tal:theming tal:condition="theming">
+                          <li tal:define="theme theming/data | nothing" tal:condition="theme">
+                            <a href="" target="_blank"
+                                tal:content="theme/title | theme/name | string:Theme"
+                                tal:attributes="href string:${site/getId}/@@theming-controlpanel">[theme name]</a>
+                          </li>
+                          <li tal:condition="not:theming/current | nothing"><a href="" target="_blank"
+                              tal:attributes="href string:${site/getId}/@@theming-controlpanel"
+                              i18n:translate="">No Diazo Theme Selected</a>
+                          </li>
+                        </tal:theming>
+                        <li i18n:translate="" tal:condition="not:theming | nothing">No Diazo Support available</li>
                       </ul>
                     </td>
                   </tr>
