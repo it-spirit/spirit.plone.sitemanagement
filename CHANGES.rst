@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.2 (unreleased)
+0.2 (2017-05-16)
 ----------------
 
 - Show information about the diazo theme of a site, if available.
