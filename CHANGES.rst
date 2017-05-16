@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.3 (unreleased)
+0.3 (2017-05-16)
 ----------------
 
 - Use most right part for addon when splitting Plone site id and addon id.
