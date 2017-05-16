@@ -6,7 +6,7 @@ from setuptools import (
     setup,
 )
 
-version = '0.3'
+version = '0.4.dev0'
 description = "Control your Plone sites from one management screen."
 long_description = ('\n'.join([
     open('README.rst').read(),
