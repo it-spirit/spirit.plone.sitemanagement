@@ -36,47 +36,53 @@
               tal:attributes="action string:${context/absolute_url}/@@plone-sitemanagement-upgrade-addons">
             <tal:block tal:condition="sites">
               <table class="table table-hover">
-                <tr>
-                  <td i18n:translate="">Site ID</td>
-                  <td i18n:translate="">Plone</td>
-                  <td i18n:translate="">Add-Ons</td>
-                </tr>
-                <tr tal:repeat="site sites">
-                  <td>
-                    <a href="#" target="_blank"
-                        tal:attributes="href site/absolute_url;
-                                        title site/Title;"
-                        tal:content="site/getId">Site ID</a>
-                  </td>
-                  <td tal:define="outdated python:view.outdated(site);
-                                  klass python:outdated and 'danger' or ''"
-                      tal:attributes="class klass">
-                    <div i18n:translate="" tal:condition="not:outdated">This site is up to date</div>
-                    <div class="upgrade-warning"
-                        tal:condition="outdated">
-                      <span i18n:translate="">This site configuration is outdated and needs to be upgraded:</span>
-                      <a i18n:translate="" href="" tal:attributes="href python:view.upgrade_url(site)">Upgrade</a>
-                    </div>
-                  </td>
-                  <td tal:define="updates python:view.get_upgrades(site);
-                                  klass python:updates and 'warning' or ''"
-                      tal:attributes="class klass">
-                    <div tal:condition="updates">
-                      <ul tal:repeat="addon updates">
-                        <li>
-                          <div class="checkbox">
-                            <label>
-                              <input name="addons" value="" type="checkbox"
-                                tal:attributes="value string:${site/getId}__${addon}" />
-                              <span tal:replace="addon">[addon]</span>
-                            </label>
-                          </div>
+                <thead>
+                  <tr>
+                    <th i18n:translate="">Site ID</th>
+                    <th i18n:translate="">Plone</th>
+                    <th i18n:translate="">Add-Ons</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr tal:repeat="site sites">
+                    <th>
+                      <a href="#" target="_blank"
+                          tal:attributes="href site/absolute_url;
+                                          title site/Title;"
+                          tal:content="site/getId">Site ID</a>
+                    </th>
+                    <td tal:define="outdated python:view.outdated(site);
+                                    klass python:outdated and 'danger' or ''"
+                        tal:attributes="class klass">
+                      <ul>
+                        <li i18n:translate="" tal:condition="not:outdated">This site is up to date</li>
+                        <li class="upgrade-warning"
+                            tal:condition="outdated">
+                          <span i18n:translate="">This site configuration is outdated and needs to be upgraded:</span>
+                          <a i18n:translate="" href="" tal:attributes="href python:view.upgrade_url(site)">Upgrade</a>
                         </li>
                       </ul>
-                    </div>
-                    <div i18n:translate="" tal:condition="not:updates">No Add-On updates available</div>
-                  </td>
-                </tr>
+                    </td>
+                    <td tal:define="updates python:view.get_upgrades(site);
+                                    klass python:updates and 'warning' or ''"
+                        tal:attributes="class klass">
+                      <ul>
+                        <tal:updates tal:condition="updates">
+                          <li tal:repeat="addon updates">
+                            <div class="checkbox">
+                              <label>
+                                <input name="addons" value="" type="checkbox"
+                                  tal:attributes="value string:${site/getId}__${addon}" />
+                                <span tal:replace="addon">[addon]</span>
+                              </label>
+                            </div>
+                          </li>
+                        </tal:updates>
+                        <li i18n:translate="" tal:condition="not:updates">No Add-On updates available</li>
+                      </ul>
+                    </td>
+                  </tr>
+                </tbody>
               </table>
 
             </tal:block>
