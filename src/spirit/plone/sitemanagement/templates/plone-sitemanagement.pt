@@ -85,11 +85,19 @@
                     <td tal:define="theming python:view.get_theming(site)">
                       <ul>
                         <tal:theming tal:condition="theming">
-                          <li tal:define="theme theming/data | nothing" tal:condition="theme">
-                            <a href="" target="_blank"
-                                tal:content="theme/title | theme/name | string:Theme"
-                                tal:attributes="href string:${site/getId}/@@theming-controlpanel">[theme name]</a>
-                          </li>
+                          <tal:theme tal:define="theme theming/data | nothing" tal:condition="theme">
+                            <li>
+                              <a href="" target="_blank"
+                                  tal:content="theme/title | theme/name | string:Theme"
+                                  tal:attributes="href string:${site/getId}/@@theming-controlpanel">[theme name]</a>
+                            </li>
+                            <li tal:condition="theme/editable | nothing">
+                              <div class="alert alert-warning" role="alert">
+                                <strong i18n:translate="">Warning!</strong>
+                                <p i18n:translate="">Theme was uploaded or modified.</p>
+                              </div>
+                            </li>
+                          </tal:theme>
                           <li tal:condition="not:theming/current | nothing"><a href="" target="_blank"
                               tal:attributes="href string:${site/getId}/@@theming-controlpanel"
                               i18n:translate="">No Diazo Theme Selected</a>
