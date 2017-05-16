@@ -307,7 +307,7 @@ class UpgradeProducts(SiteManagement):
         messages = []
         if addons:
             for addon in addons:
-                site_id, addon_id = addon.split('__')
+                site_id, addon_id = addon.rsplit('__', 1)
                 result = self.upgrade_product(site_id, addon_id)
                 if not result:
                     messages.append(
