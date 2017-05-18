@@ -60,7 +60,7 @@
                         <li class="upgrade-warning"
                             tal:condition="outdated">
                           <span i18n:translate="">This site configuration is outdated and needs to be upgraded:</span>
-                          <a i18n:translate="" href="" tal:attributes="href python:view.upgrade_url(site)">Upgrade</a>
+                          <a i18n:translate="" href="" target="_blank" tal:attributes="href python:view.upgrade_url(site)">Upgrade</a>
                         </li>
                       </ul>
                     </td>
